@@ -4,12 +4,27 @@ import api from "../API";
 import logo from "../assets/images/logo.png";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import Admin_Header from "../Component/Admin_Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Add_Room from "../Component/Add_Room";
 import Show_Book from "../Component/Show_Book";
 
 const admin = () => {
   const [showRoom,setRoom] = useState(1)
+  const navigate = useNavigate()
+
+  async function logout() {
+    try {
+      const res = await api.get("/cur_user"); // get all current user
+      const items = res.data;
+
+      for (const item of items) {
+        await api.delete(`/cur_user/${item.id}`);
+      }
+      navigate("/");
+    } catch(err) {
+      toast.error(`error : ${err}`);
+    }
+  }
   
   return (
     <>
@@ -37,11 +52,9 @@ const admin = () => {
                 </button>
             </li>
             <li className="">
-              <Link href="/">
-                <button className="btn btn-outline-danger w-100 rounded-0 text-capitalize">
+                <button className="btn btn-outline-danger w-100 rounded-0 text-capitalize" onClick={logout}>
                   logout
                 </button>
-              </Link>
             </li>
           </ul>
         </div>

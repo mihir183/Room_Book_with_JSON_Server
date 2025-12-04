@@ -9,16 +9,7 @@
       "cpass": "123"
     }
   ],
-  "cur_user": [
-    {
-      "id": "a4fc",
-      "username": "mihir",
-      "email": "mihir123@gmail.com",
-      "profile": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsHoH6SjmetH5_WWW8bi-D5a66kWbHSFbDtw&s",
-      "pass": "123",
-      "cpass": "123"
-    }
-  ],
+  "cur_user": [],
   "room": [
     {
       "id": "1b03",

@@ -4,17 +4,24 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Routing from "./Layout.jsx";
 import { Suspense } from "react";
 import Loading from "./Component/Loading.jsx";
-import { ToastContainer,Bounce } from "react-toastify";
+import { ToastContainer, Bounce } from "react-toastify";
+import PrivateRoute from "./PrivateRoute.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
 
 const App = () => {
   return (
     <>
       <Router>
-        <Suspense fallback={<Loading/>}>
+        <Suspense fallback={<Loading />}>
           <Routes>
-            {Routing.map((ele) => (
-              <Route path={ele.path} element={<ele.element />}></Route>
-            ))}
+            <Route element={<PrivateRoute/>}>
+              {Routing.map((ele) => (
+                <Route path={ele.path} element={<ele.element />}></Route>
+              ))}
+            </Route>
+            <Route path="/" element={<Login/>}></Route>
+            <Route path="/register" element={<Register/>}></Route>
           </Routes>
         </Suspense>
       </Router>

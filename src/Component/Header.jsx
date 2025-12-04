@@ -3,6 +3,10 @@ import logo from "../assets/images/logo.png";
 import { useEffect } from "react";
 import api from "../API";
 import { useState } from "react";
+import auth from '../../firebase'
+import { toast } from "react-toastify";
+import {signOut} from "firebase/auth";
+
 const Header = () => {
   const navigate = useNavigate();
   const [curUser, setUser] = useState([]);
@@ -15,11 +19,13 @@ const Header = () => {
 
   useEffect(() => {
     fetchUser();
-    console.log(curUser);
   }, []);
 
   async function logout() {
     try {
+
+      await signOut(auth)
+
       const res = await api.get("/cur_user"); // get all items
       const items = res.data;
 
@@ -27,8 +33,8 @@ const Header = () => {
         await api.delete(`/cur_user/${item.id}`);
       }
       navigate("/");
-    } catch {
-      toast.error("error");
+    } catch(err) {
+      toast.error(`error : ${err}`);
     }
   }
   return (
